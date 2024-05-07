@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="product-container">
+        {% for z in pro %}
+            <div class="product-item">
+                <span class="product-name"><a href="{% url 'product' name=z.name %}">{{ z.name }}</a></span>
+                <img src="{{ z.image.url }}" alt="">
+            </div>
+        {% endfor %}
+    </div>
+{% endblock content %}

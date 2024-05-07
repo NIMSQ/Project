@@ -1,9 +1,15 @@
-{%extends 'base.html' %}
+{% extends 'base.html' %}
 
 
 {% block content %}
 
 
-<h1>about <h1></h1>
+<form method = "POST">
+ {% csrf_token %}
+ 
+    {{lf}}
+<input type = "submit" value = 'SAVE TO DATABASE'>
 
-    {% endblock content%}
+</form>
+
+{% endblock content%}
