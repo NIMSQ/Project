@@ -1,12 +1,22 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div class="product-container">
-        {% for z in pro %}
-            <div class="product-item">
-                <span class="product-name"><a href="{% url 'product' name=z.name %}">{{ z.name }}</a></span>
-                <img src="{{ z.image.url }}" alt="">
-            </div>
-        {% endfor %}
-    </div>
+<form method="POST" action="{% url 'products' %}">
+    {% csrf_token %}
+    <select name="selectedcategory" onchange="this.form.submit()">
+        <option value="None" {% if selected_category == 'None' or not selected_category %}selected{% endif %}>None</option>
+        <option value="computer" {% if selected_category == 'computer' %}selected{% endif %}>Computers</option>
+        <option value="phone" {% if selected_category == 'phone' %}selected{% endif %}>Phones</option>
+    </select>
+</form>
+
+
+<div class="product-container">
+    {% for z in pro %}
+        <div class="product-item">
+            <span class="product-name"><a href="{% url 'product' name=z.name %}">{{ z.name }}</a></span>
+            <img src="{{ z.image.url }}" alt="">
+        </div>
+    {% endfor %}
+</div>
 {% endblock content %}

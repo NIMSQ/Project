@@ -3,11 +3,24 @@ from .models import Product
 
 
 def products(request):
-    pro = Product.objects.all()
-    x = {'pro':pro}
-    return render(request, 'products/products.html', x)
+    selected_category = None
+    if request.method == 'POST':
+        selected_category = request.POST.get('selectedcategory')
+        if selected_category and selected_category != 'None':
+            pro = Product.objects.filter(category=selected_category)
+        else:
+            pro = Product.objects.all()
+    else:
+        pro = Product.objects.all()
+    
+    context = {'pro': pro, 'selected_category': selected_category}
+    return render(request, 'products/products.html', context)
+
 
 
 def product(request, name):
     product = get_object_or_404(Product, name=name)
     return render(request, 'products/product.html', {'product': product})
+
+
+
