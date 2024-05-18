@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block stylesheet %}
+
+{% endblock stylesheet %}
+
+{% block title %}Updating a Product{% endblock title %}
+
+{% block content %}
+    <h3>Update a Product</h3>
+    <form method='POST' enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <label for="name">Name</label>
+        <input type='text' id='name' name='name' value="{{ obj.name }}"  />
+        <br>
+        
+        <label for="content">Content</label>
+        <textarea id='content' name='content' >{{ obj.content }}</textarea>
+        <br>
+        
+        <label for="price">Price</label>
+        <input type='number' id='price' name='price' value="{{ obj.price }}" step="0.01"  />
+        <br>
+        
+        <label for="image">Image</label>
+        <input type='file' id='image' name='image' />
+        <br>
+        
+        <label for="active">Active</label>
+        <input type='checkbox' id='active' name='active' {% if obj.active %}checked{% endif %} />
+        <br>
+        
+        <label for="category">Category</label>
+        <select id='category' name='category' required>
+            <option value=''>Select a category</option>
+            <option value='computer' {% if obj.category == 'computer' %}selected{% endif %}>Computers</option>
+            <option value='phone' {% if obj.category == 'phone' %}selected{% endif %}>Phones</option>
+           
+        </select>
+        <br>
+        
+        <input type='submit' value='Update' />
+    </form>
+{% endblock content %}
